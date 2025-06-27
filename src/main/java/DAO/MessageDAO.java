@@ -99,4 +99,31 @@ public class MessageDAO {
         }
         return messages;
     }
+
+    public void deleteMessageById(int id){
+        Connection conn = ConnectionUtil.getConnection();
+        try{
+            String sql = "DELETE FROM message WHERE message_id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateMessageText(int id, String text){
+        Connection conn = ConnectionUtil.getConnection();
+        try{
+            String sql = "UPDATE message SET message_text = ? WHERE message_id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1,text);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
 }
