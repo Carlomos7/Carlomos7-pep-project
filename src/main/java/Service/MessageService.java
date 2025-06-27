@@ -16,4 +16,14 @@ public class MessageService {
         this.messageDAO = messageDAO;
     }
 
+    public Message createMessage(Message message){
+        if(!isValidMessageText(message.getMessage_text())){
+            return null;
+        }
+        return messageDAO.insertMessage(message);
+    }
+
+    private boolean isValidMessageText(String text){
+        return text != null && !text.isBlank() && text.length() <= 255;
+    }
 }
